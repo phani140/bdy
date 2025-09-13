@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Birthday Wish</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&family=Lobster&family=Great+Vibes&family=Satisfy&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Quicksand&family=Nunito&family=Comfortaa&family=Baloo+2&family=Fredoka+One&family=Comic+Neue&family=Gloria+Hallelujah&display=swap" rel="stylesheet">
+
+  <style>
+     body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(20deg, white, lightpink);
+      background-attachment: fixed;
+      color: #333;
+      overflow-x: hidden;
+    }
+    header {
+      text-align: center;
+      padding: 40px 20px 10px;
+      font-family: 'Great Vibes', cursive;
+      font-size: 3rem;
+      color: black;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    #heart-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: red;
+      transform: rotate(45deg);
+      animation: float 6s linear infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -7.5px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -7.5px;
+      top: 0;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(45deg);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .scene {
+    width: 300px;
+    height: 300px;
+    perspective: 800px;
+    margin: 60px auto 0; /* pushes cube down and centers it */
+  }
+
+    .cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotate  15s infinite linear;
+    }
+
+    .face {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border: 2px solid #948989;
+  backface-visibility: hidden;
+}
+
+.face img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* keeps image proportional */
+  border-radius: 0px; /* optional: rounded corners */
+}
+
+    .front  { transform: rotateY(0deg) translateZ(100px); }
+    .back   { transform: rotateY(180deg) translateZ(100px); }
+    .right  { transform: rotateY(90deg) translateZ(100px); }
+    .left   { transform: rotateY(-90deg) translateZ(100px); }
+
+    @keyframes rotate {
+      from { transform: rotateY(0deg); }
+      to   { transform: rotateY(-360deg); }
+    }
+
+button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  background: #ff4081;
+  color: rgb(8, 0, 0);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #e91e63;
+}
+
+/* Popup box */
+#popup {
+  display: none; /* hidden by default */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(20deg, white, pink);
+
+  /* Flexible sizing */
+  width: clamp(280px, 80%, 500px);   /* min 280px, fluid, max 500px */
+  max-height: 80vh;                  /* avoid overflow on small screens */
+  padding: clamp(15px, 4vw, 40px);   /* scales padding with screen */
+
+  border-radius: 12px;
+  box-shadow: 0px 4px 20px rgba(0,0,0,0.3);
+  text-align: center;
+  z-index: 1000;
+
+  /* Scroll if text is long */
+  overflow-y: auto;
+
+  /* Responsive text */
+  font-size: clamp(14px, 2vw, 20px);
+  line-height: 1.5;
+}
+
+
+/* Twinkling stars */
+.star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgb(255, 255, 255);
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgb(255, 255, 255), 0 0 12px rgb(255, 255, 255);
+  opacity: 0;
+  animation: twinkle 4s infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0; transform: scale(0.6); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+  </style>
+</head>
+<body>
+    <div id="heart-container"></div>
+    <div id="star-container"></div>
+    <header>Happy Birthday Chinni💖</header>
+
+    <div class="scene">
+  <div class="cube">
+    <div class="face front"><img src="image1.png" alt="Front"></div>
+    <div class="face back"><img src="image2.jpg" alt="Back"></div>
+    <div class="face right"><img src="image3.jpg" alt="Right"></div>
+    <div class="face left"><img src="image4.png" alt="Left"></div>
+  </div>
+</div>
+
+<!-- Button -->
+<button onclick="showPopup()">click </button>
+
+<!-- Popup -->
+<div id="overlay"></div>
+<div id="popup">
+
+<p style="font-family: 'Great Vibes', cursive; font-size: 30px; color: black ">
+    Special Message for You <br>
+</p>
+<p style="font-family: 'Poppins', sans-serif; font-size: 18px; color: blue ">
+  On this special day, I want you to know how grateful I am to have you in my life.
+  Your Presence fills my days with joy, your caring gives me strength.You are not just my childhood friend, your are my amma,my best friend,my pandi,my princess and everything. <br><br>
+
+  Today, I celebrate you - your kindness, beauty, amazing spirit,and all the wonderful things that make you uniquely you.I hope this birthday of your life brings endless happiness and all your dreams come true.
+</p>
+<p style="font-family: 'Dancing Script', cursive; font-size: 30px; color: brown ">Happy birthday Chinamma! God bless you thalli <br> <strong>LULA❤️</strong></p>
+
+  <br>
+  <button onclick="closePopup()">Close</button>
+</div>
+    <script> 
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = `${Math.random() * 100}vw`;
+      heart.style.animationDuration = `${4 + Math.random() * 3}s`;
+      document.getElementById('heart-container').appendChild(heart);
+      setTimeout(() => heart.remove(), 7000);
+    }
+
+    setInterval(createHeart, 400);
+
+    function showPopup() {
+  document.getElementById("popup").style.display = "block";
+  document.getElementById("overlay").style.display = "block";
+}
+
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+  document.getElementById("overlay").style.display = "none";
+}
+
+function createStar() {
+  const star = document.createElement("div");
+  star.className = "star";
+  star.style.left = `${Math.random() * 100}vw`;
+  star.style.top = `${Math.random() * 100}vh`;
+  star.style.animationDuration = `${1.5 + Math.random() * 2}s`; // random twinkle
+  document.getElementById("star-container").appendChild(star);
+
+  setTimeout(() => star.remove(), 6000); // keep stars longer
+}
+
+// generate more stars faster
+setInterval(createStar, 100); // was 200 → now 80ms
+
+
+    </script>
+</body>
